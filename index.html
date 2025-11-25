@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James Andrei Revilla | Full Stack Developer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#020204', 
+                        card: '#0a0a0a', 
+                        primary: '#8b5cf6', 
+                        secondary: '#3b82f6',
+                        accent: '#10b981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("oCfXerD3vC4F4r5sj");
+       })();
+    </script>
+</head>
+<body class="bg-dark text-gray-300 font-sans antialiased transition-colors duration-300 dark:bg-gray-50 dark:text-gray-800 overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[9999] bg-dark flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="font-mono text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 animate-pulse">
+            &lt;DEV.JAMES /&gt;
+        </div>
+        <div class="mt-4 w-48 h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div class="h-full bg-primary animate-loading-bar"></div>
+        </div>
+        <p class="mt-2 font-mono text-xs text-gray-500">System Initializing...</p>
+    </div>
+
+    <!-- Background Elements -->
+    <!-- Grid is handled in style.css, opacity set here to make it subtle but visible -->
+    <div class="fixed inset-0 z-[-1] opacity-30 pointer-events-none grid-bg"></div>
+    
+    <div class="fixed top-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[128px] animate-blob z-[-1]"></div>
+    <div class="fixed bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[128px] animate-blob animation-delay-2000 z-[-1]"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/5 bg-dark/90 backdrop-blur-xl transition-all duration-300">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="text-xl font-bold text-gray-200 font-mono group-hover:text-primary transition-colors">
+                    ~/james.dev
+                </span>
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-800 focus:outline-none ring-1 ring-gray-700">
+                <span class="sr-only">Open main menu</span>
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <div class="hidden w-full md:flex md:w-auto md:order-1" id="navbar-default">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 border border-gray-800 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-dark md:bg-transparent font-mono text-sm shadow-2xl md:shadow-none">
+                    <li><a href="#about" class="block py-2 px-3 text-gray-400 hover:text-white hover:bg-white/5 rounded md:hover:bg-transparent md:hover:text-primary transition">01. About</a></li>
+                    <li><a href="#skills" class="block py-2 px-3 text-gray-400 hover:text-white hover:bg-white/5 rounded md:hover:bg-transparent md:hover:text-primary transition">02. Skills</a></li>
+                    <li><a href="#projects" class="block py-2 px-3 text-gray-400 hover:text-white hover:bg-white/5 rounded md:hover:bg-transparent md:hover:text-primary transition">03. Projects</a></li>
+                    <li><a href="#contact" class="block py-2 px-3 text-gray-400 hover:text-white hover:bg-white/5 rounded md:hover:bg-transparent md:hover:text-primary transition">04. Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="hidden md:flex md:order-2 ml-4">
+                <button id="theme-toggle" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition text-yellow-400">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section class="min-h-screen flex items-center justify-center pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute top-32 left-10 font-mono text-xs text-gray-800 select-none hidden xl:block">
+            &lt;html&gt;<br>&nbsp;&nbsp;&lt;body&gt;
+        </div>
+
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-mono text-accent border border-accent/20 rounded-full bg-accent/5 backdrop-blur-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                    Available for Work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight tracking-tight">
+                    Building Digital <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-gradient">
+                        Experiences
+                    </span>
+                </h1>
+                
+                <div class="font-mono text-lg text-gray-400 mb-8 flex items-center gap-2 bg-white/5 w-fit px-5 py-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                    <span class="text-primary">&gt;</span>
+                    <span id="typewriter"></span><span class="cursor-blink w-2 h-5 bg-white block"></span>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{GITHUB_LINK}}" class="group px-8 py-3.5 bg-card hover:bg-white/10 text-white rounded-xl border border-white/10 flex items-center gap-3 transition-all hover:scale-[1.02] shadow-lg hover:shadow-primary/20">
+                        <i class="fab fa-github text-xl group-hover:rotate-12 transition-transform"></i> Github
+                    </a>
+                    <a href="{{RESUME_LINK}}" class="group px-8 py-3.5 bg-white text-black font-bold rounded-xl hover:bg-gray-200 flex items-center gap-3 transition-all hover:scale-[1.02] shadow-lg shadow-white/10">
+                        <i class="fas fa-download text-lg"></i> Resume
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative flex justify-center perspective-1000" data-aos="fade-left" data-aos-duration="1200">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <div class="absolute inset-0 rounded-full border border-dashed border-white/20 animate-spin-slow"></div>
+                    <div class="absolute inset-2 rounded-full overflow-hidden border-4 border-dark shadow-2xl">
+                        <img src="ME.png" alt="James" class="w-full h-full object-cover hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl animate-bounce-slow">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-green-500/20 p-2 rounded-lg text-green-400"><i class="fas fa-code"></i></div>
+                            <div>
+                                <div class="text-xs text-gray-400 font-mono">Status</div>
+                                <div class="text-sm font-bold text-white">Coding...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="w-full border-t border-white/5"></div>
+
+    <!-- 2. ABOUT ME -->
+    <section id="about" class="py-40 px-6 relative">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 font-mono text-sm text-gray-800 dark:text-gray-700 select-none">/* 01. ABOUT ME */</div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Behind the <span class="text-primary">Keyboard</span></h2>
+                <div class="max-w-2xl mx-auto bg-card border border-white/10 rounded-xl p-6 font-mono text-sm text-left text-gray-400 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    <p><span class="text-purple-400">const</span> <span class="text-blue-400">developer</span> = {</p>
+                    <p class="pl-4">name: <span class="text-green-400">"James Andrei"</span>,</p>
+                    <p class="pl-4">role: <span class="text-green-400">"Full Stack Dev"</span>,</p>
+                    <p class="pl-4">mission: <span class="text-green-400">"Crafting clean, efficient code."</span></p>
+                    <p>}</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group bg-card border border-white/5 hover:border-primary/50 p-8 rounded-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute -right-4 -top-4 bg-primary/10 w-24 h-24 rounded-full blur-2xl group-hover:bg-primary/20 transition"></div>
+                    <i class="fas fa-bolt text-4xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-xl font-bold text-white mb-3">Fast & Efficient</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Optimized performance and quick turnaround times are my priority.</p>
+                </div>
+
+                <div class="group bg-card border border-white/5 hover:border-blue-500/50 p-8 rounded-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -right-4 -top-4 bg-blue-500/10 w-24 h-24 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+                    <i class="fas fa-layer-group text-4xl text-blue-400 mb-6"></i>
+                    <h3 class="text-xl font-bold text-white mb-3">Scalable Code</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Writing modular, maintainable code that grows with the project.</p>
+                </div>
+
+                <div class="group bg-card border border-white/5 hover:border-green-500/50 p-8 rounded-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -right-4 -top-4 bg-green-500/10 w-24 h-24 rounded-full blur-2xl group-hover:bg-green-500/20 transition"></div>
+                    <i class="fas fa-check-circle text-4xl text-green-400 mb-6"></i>
+                    <h3 class="text-xl font-bold text-white mb-3">Bug Squasher</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Methodical approach to testing and debugging ensuring stability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. STATS -->
+    <section class="py-20 px-6 border-y border-white/5 bg-white/[0.02]">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="zoom-in">
+                    <div class="text-4xl font-bold text-white mb-2">5<span class="text-primary">+</span></div>
+                    <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Projects</div>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-4xl font-bold text-white mb-2">3<span class="text-primary">+</span></div>
+                    <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Years Coding</div>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-4xl font-bold text-white mb-2">12<span class="text-primary">+</span></div>
+                    <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Technologies</div>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-4xl font-bold text-white mb-2">∞</div>
+                    <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Learning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. TIMELINE -->
+    <section class="py-40 px-6 relative">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 font-mono text-sm text-gray-800 select-none">/* 02. HISTORY */</div>
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-16 text-center">Dev <span class="text-blue-500">Log</span></h2>
+
+            <div class="relative border-l-2 border-white/10 ml-4 md:ml-0 space-y-16">
+                <div class="relative pl-12 md:pl-16 group" data-aos="fade-right">
+                    <span class="absolute -left-[9px] top-0 h-5 w-5 rounded-full bg-dark border-4 border-purple-500 group-hover:scale-125 transition duration-300"></span>
+                    <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between mb-2">
+                        <h4 class="text-xl font-bold text-white group-hover:text-purple-400 transition">Advanced Web Dev</h4>
+                        <span class="font-mono text-xs text-gray-500 bg-white/5 px-3 py-1 rounded-full">2025 - Present</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xl">Focusing on full-stack architecture using MERN stack. Building scalable APIs and responsive front-ends.</p>
+                </div>
+
+                <div class="relative pl-12 md:pl-16 group" data-aos="fade-right" data-aos-delay="100">
+                    <span class="absolute -left-[9px] top-0 h-5 w-5 rounded-full bg-dark border-4 border-blue-500 group-hover:scale-125 transition duration-300"></span>
+                    <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between mb-2">
+                        <h4 class="text-xl font-bold text-white group-hover:text-blue-400 transition">Frontend Mastery</h4>
+                        <span class="font-mono text-xs text-gray-500 bg-white/5 px-3 py-1 rounded-full">2024</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xl">Deepened knowledge in Tailwind CSS, Figma prototyping, and React state management.</p>
+                </div>
+
+                <div class="relative pl-12 md:pl-16 group" data-aos="fade-right" data-aos-delay="200">
+                    <span class="absolute -left-[9px] top-0 h-5 w-5 rounded-full bg-dark border-4 border-gray-500 group-hover:scale-125 transition duration-300"></span>
+                    <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between mb-2">
+                        <h4 class="text-xl font-bold text-white group-hover:text-gray-300 transition">Foundations</h4>
+                        <span class="font-mono text-xs text-gray-500 bg-white/5 px-3 py-1 rounded-full">2023</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xl">Started the journey with C++, Java, and VB.NET algorithms and desktop applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SKILLS -->
+    <section id="skills" class="py-40 px-6 bg-white/[0.02] relative border-y border-white/5">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 font-mono text-sm text-gray-800 select-none">/* 03. ARSENAL */</div>
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-20">Tech <span class="text-emerald-500">Stack</span></h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <div class="skill-card group"><i class="fab fa-html5 text-orange-500 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">HTML5</span></div>
+                <div class="skill-card group"><i class="fab fa-css3-alt text-blue-500 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">CSS3</span></div>
+                <div class="skill-card group"><i class="fab fa-js text-yellow-400 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">JavaScript</span></div>
+                <div class="skill-card group"><i class="fab fa-react text-cyan-400 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">React</span></div>
+                <div class="skill-card group"><i class="fab fa-node text-green-500 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">Node.js</span></div>
+                <div class="skill-card group"><i class="fas fa-database text-green-400 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">MongoDB</span></div>
+                <div class="skill-card group"><i class="fab fa-python text-blue-300 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">Python</span></div>
+                <div class="skill-card group"><i class="fab fa-java text-red-500 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">Java</span></div>
+                <div class="skill-card group"><i class="fas fa-code text-purple-500 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">VB.NET</span></div>
+                <div class="skill-card group"><i class="fab fa-git-alt text-orange-600 text-4xl mb-4 group-hover:scale-110 transition"></i><span class="text-xs font-mono text-gray-400">Git</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. PROJECTS -->
+    <section id="projects" class="py-40 px-6 relative overflow-hidden">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 font-mono text-sm text-gray-800 select-none">/* 04. WORK */</div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-20">Featured <span class="text-blue-500">Projects</span></h2>
+            
+            <div class="relative px-0 md:px-12 group">
+                <!-- Buttons -->
+                <button id="prevBtn" class="flex absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-14 md:h-14 bg-card/90 border border-white/10 rounded-full text-white hover:bg-primary hover:border-primary transition items-center justify-center shadow-xl">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button id="nextBtn" class="flex absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-14 md:h-14 bg-card/90 border border-white/10 rounded-full text-white hover:bg-primary hover:border-primary transition items-center justify-center shadow-xl">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <!-- Carousel -->
+                <div class="overflow-hidden rounded-2xl py-4 mx-2 md:mx-0">
+                    <div id="track" class="flex gap-8 transition-transform duration-500 ease-out will-change-transform">
+                        
+                        <!-- Card 1 -->
+                        <div class="project-card min-w-full md:min-w-[400px] bg-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/50 transition-colors group">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+                                    <a href="#" class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg">View</a>
+                                </div>
+                            </div>
+                            <div class="p-8">
+                                <h3 class="text-2xl font-bold text-white mb-2">Inventory System</h3>
+                                <p class="text-gray-400 text-sm mb-4">Desktop application for managing stock and sales.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-purple-400">VB.NET</span>
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-blue-400">MySQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="project-card min-w-full md:min-w-[400px] bg-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/50 transition-colors group">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+                                    <a href="#" class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg">View</a>
+                                </div>
+                            </div>
+                            <div class="p-8">
+                                <h3 class="text-2xl font-bold text-white mb-2">POS Terminal</h3>
+                                <p class="text-gray-400 text-sm mb-4">Point of Sale system with receipt printing.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-blue-400">C#</span>
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-cyan-400">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="project-card min-w-full md:min-w-[400px] bg-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/50 transition-colors group">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+                                    <a href="#" class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg">View</a>
+                                </div>
+                            </div>
+                            <div class="p-8">
+                                <h3 class="text-2xl font-bold text-white mb-2">Student Portal</h3>
+                                <p class="text-gray-400 text-sm mb-4">Grade viewing and enrollment system.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-indigo-400">PHP</span>
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-yellow-400">JS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="project-card min-w-full md:min-w-[400px] bg-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/50 transition-colors group">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+                                    <a href="#" class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg">View</a>
+                                </div>
+                            </div>
+                            <div class="p-8">
+                                <h3 class="text-2xl font-bold text-white mb-2">Analytics Dashboard</h3>
+                                <p class="text-gray-400 text-sm mb-4">Data visualization for business metrics.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-cyan-400">React</span>
+                                    <span class="text-xs font-mono bg-white/5 px-2 py-1 rounded text-green-400">Node</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CONTACT -->
+    <section id="contact" class="py-40 px-6 relative border-t border-white/5 bg-gradient-to-b from-dark to-black">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 font-mono text-sm text-gray-800 select-none">/* 05. CONNECT */</div>
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-card/50 backdrop-blur-xl border border-white/10 p-10 rounded-3xl shadow-2xl" data-aos="fade-up">
+                <h3 class="text-3xl font-bold text-center text-white mb-2">Get In <span class="text-purple-500">Touch</span></h3>
+                <p class="text-center text-gray-500 mb-8 text-sm">Have a project in mind or just want to say hi?</p>
+                
+                <form id="contact-form" class="space-y-5">
+                    <div class="grid grid-cols-2 gap-5">
+                        <input type="text" name="user_name" placeholder="Name" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition" required>
+                        <input type="email" name="user_email" placeholder="Email" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition" required>
+                    </div>
+                    <input type="text" name="subject" placeholder="Subject" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition" required>
+                    <textarea name="message" rows="5" placeholder="Message..." class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition" required></textarea>
+                    
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] transition-all">
+                        Send Message
+                    </button>
+                    <p id="status-msg" class="text-center text-xs mt-4 text-gray-400 font-mono min-h-[1rem]"></p>
+                </form>
+
+                <!-- SOCIAL LINKS SECTION -->
+                <div class="flex justify-center gap-8 mt-10 pt-8 border-t border-white/10">
+                    <a href="https://www.facebook.com/revillaandrei" target="_blank" class="text-gray-400 hover:text-blue-600 transition-all hover:scale-110 text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@_jmzndr" target="_blank" class="text-gray-400 hover:text-pink-500 transition-all hover:scale-110 text-2xl"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/_jmzndr/" target="_blank" class="text-gray-400 hover:text-pink-600 transition-all hover:scale-110 text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/experts-james-andrei-revilla-9a3567359/" target="_blank" class="text-gray-400 hover:text-blue-400 transition-all hover:scale-110 text-2xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:revillajamesandrei4@gmail.com" class="text-gray-400 hover:text-red-500 transition-all hover:scale-110 text-2xl"><i class="fas fa-envelope"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5 bg-black text-gray-600 font-mono text-xs">
+        <p>&copy; 2025 James Andrei Revilla. Built with &lt;Code/&gt;</p>
+    </footer>
+
+    <!-- Chatbot UI -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="chat-toggle" class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full text-white shadow-2xl hover:scale-110 transition flex items-center justify-center text-2xl border-2 border-white/10">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+        <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 md:w-96 h-[500px] bg-card/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-right transition-all">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-4 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="font-bold">AI Assistant</span>
+                </div>
+                <button id="close-chat" class="hover:bg-white/20 rounded-full p-1 transition"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-4 bg-black/50 scrollbar-hide">
+                <div class="flex justify-start">
+                    <div class="bg-white/10 text-gray-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] text-sm border border-white/5">
+                        Hello! I'm James' AI assistant. How can I help?
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-card border-t border-white/10 flex gap-2">
+                <input type="text" id="user-input" placeholder="Ask me anything..." class="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2 text-white text-sm outline-none focus:border-primary transition">
+                <button id="send-btn" class="w-10 h-10 bg-primary rounded-xl text-white flex items-center justify-center hover:bg-purple-600 transition"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 800 });
+        
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 2000); // 2 seconds duration
+        });
+    </script>
+</body>
+</html>

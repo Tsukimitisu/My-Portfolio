@@ -1,0 +1,96 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #020204;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+/* Grid Background - Updated to be subtle */
+.grid-bg {
+    background-size: 60px 60px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+}
+
+/* Animations */
+.cursor-blink {
+    animation: blink 1s infinite step-end;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.animate-spin-slow {
+    animation: spin 10s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s infinite ease-in-out;
+}
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Preloader Bar */
+@keyframes loading-bar {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+.animate-loading-bar {
+    animation: loading-bar 1.5s infinite linear;
+}
+
+/* Skill Card Glass Effect */
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.skill-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    transform: translateY(-5px);
+}
+
+/* --- DISABLE TEXT SELECTION & IMAGE DRAGGING --- */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+img {
+    -webkit-user-drag: none;
+   
+    pointer-events: none; /* Prevents right-click on images specifically */
+}
+
+/* Allow text selection ONLY in input fields so people can type */
+input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
