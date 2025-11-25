@@ -29,7 +29,7 @@ if(menuBtn && navMenu) {
 
 // --- 3. TYPEWRITER EFFECT ---
 const typeElement = document.getElementById('typewriter');
-const phrases = ["3rd Year BSIT Student", "Programmer", "Web Developer"];
+const phrases = ["3rd Year BSIT Student ", "Programmer ", "Web Developer "];
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
@@ -226,29 +226,29 @@ function addMessage(text, sender) {
     return id;
 }
 
-// --- 7. DISABLE INSPECT & RIGHT CLICK ---
+// Bawal Mag Inspect Elements
 document.addEventListener('contextmenu', function (e) {
-    e.preventDefault(); // Block Right Click
+    e.preventDefault(); 
 });
 
 document.onkeydown = function (e) {
-    // Block F12
+   
     if (e.keyCode == 123) {
         return false;
     }
-    // Block Ctrl+Shift+I (Inspect Element)
+   
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
         return false;
     }
-    // Block Ctrl+Shift+J (Console)
+   
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
         return false;
     }
-    // Block Ctrl+Shift+C (Inspect Element Mode)
+   
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
         return false;
     }
-    // Block Ctrl+U (View Source)
+ 
     if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
         return false;
     }
